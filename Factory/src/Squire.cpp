@@ -1,5 +1,6 @@
 #include "Squire.hpp"
 #include <iostream>
+#include "Factory.hpp"
 Squire::Squire()
 {
     this->name = "Squire";
@@ -16,3 +17,5 @@ void Squire::draw()
 {
     std::cout << "The shape is: " << this->name << std::endl;
 }
+
+SHAPE_REGISTER("Squire", Squire);

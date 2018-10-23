@@ -7,9 +7,9 @@ int main(int argc, char const *argv[])
 {
     std::shared_ptr<Factory> factor = std::make_shared<Factory>();
     std::vector<BaseShape *> shapes;
+    shapes.push_back(factor->creator("Squire"));
     shapes.push_back(factor->creator("Cycle"));
     shapes.push_back(factor->creator("Rect"));
-    shapes.push_back(factor->creator("Squire"));
     shapes.push_back(factor->creator("Diamond"));
 
     for (auto &shap : shapes)

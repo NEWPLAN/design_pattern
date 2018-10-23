@@ -45,8 +45,7 @@ class caffe_bench : public perf_trace
 		auto iter = map_id2task.find(tid);
 		if (iter == map_id2task.end()) //not find and insert to map
 		{
-			std::pair<int, std::string> pr(tid, task);
-			map_id2task.insert(std::move(pr));
+			map_id2task.insert(std::make_pair(tid, task));
 		}
 		else //update task map
 		{

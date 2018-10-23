@@ -5,6 +5,8 @@
 #include "Diamond.hpp"
 #include <iostream>
 
+std::unordered_map<std::string, std::function<BaseShape *()>> Factory::Creators;
+
 Factory::Factory()
 {
   return;
@@ -12,15 +14,12 @@ Factory::Factory()
 
 BaseShape *Factory::creator(std::string name)
 {
-  if (name == "Cycle")
-    return new Cycle();
-  if (name == "Rect")
-    return new Rect();
-  if (name == "Diamond")
-    return new Diamond();
-  if (name == "Squire")
-    return new Squire();
-  throw std::invalid_argument("Unknown shape: " + name);
+  if (Factory::Creators.find(name) == Factory::Creators.end())
+  {
+    throw std::invalid_argument("Unknown shape: " + name);
+    return nullptr;
+  }
+  return Factory::Creators[name]();
 }
 
 Factory::~Factory()
@@ -29,7 +28,9 @@ Factory::~Factory()
   return;
 }
 
-void Factory::resgiter(std::string &name, BaseShape *ctrator)
+void Factory::resgiter(std::string name, std::function<BaseShape *()> creator)
 {
-  return;
+  if (Factory::Creators.find(name) != Factory::Creators.end())
+    return;
+  Factory::Creators.emplace(std::make_pair(name, creator));
 }
